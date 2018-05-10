@@ -29,8 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void tryLogin(View view){
-        TextInputLayout email = findViewById(R.id.emailInputText);
-        TextInputLayout password = findViewById(R.id.passwordInputText);
+        TextView email = findViewById(R.id.emailInputText);
+        TextView password = findViewById(R.id.passwordInputText);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://192.168.1.100/be.alumni/index.php/api/users/";
