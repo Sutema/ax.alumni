@@ -15,7 +15,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sutema.apps.alumnitracker.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
+    private String urlApi = "http://192.168.1.100/be.alumni/index.php/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +33,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void tryLogin(View view){
-        TextView email = findViewById(R.id.emailInputText);
-        TextView password = findViewById(R.id.passwordInputText);
+        final TextView email = findViewById(R.id.emailInputText);
+        final TextView password = findViewById(R.id.passwordInputText);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://192.168.1.100/be.alumni/index.php/api/users/";
+        String url = this.urlApi + "/users/verify";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println(response);
@@ -45,7 +49,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println("Didnt work");
             }
-        });
+        }){
+            protected Map<String, String> getParams(){
+                Map<String, String> myData = new HashMap<String, String>();
+                myData.put("email", email.getText().toString());
+                myData.put("password", password.getText().toString());
+                return myData;
+            }
+        };
 
         requestQueue.add(stringRequest);
 
