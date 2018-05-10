@@ -1,9 +1,11 @@
 package com.sutema.apps.alumnitracker.view;
 
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void tryLogin(View view){
+        TextInputLayout email = findViewById(R.id.emailInputText);
+        TextInputLayout password = findViewById(R.id.passwordInputText);
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://192.168.1.100/be.alumni/index.php/api/users/";
 
