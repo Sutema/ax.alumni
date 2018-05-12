@@ -48,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
                     boolean isSuccess = json.get("success").asBoolean();
 
                     if(isSuccess){
-                        Toast.makeText(getApplicationContext(), "Registrasi sukses, silahkan login...", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Registrasi sukses, silahkan login", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                     }else{
@@ -56,6 +56,8 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Internal Error, hubungi Administrator!", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -78,7 +80,7 @@ public class SignupActivity extends AppCompatActivity {
 
         try{
             if(!password.getText().toString().equals(passwordConfirm.getText().toString())){
-                Toast.makeText(getApplicationContext(), "Konfirmasi password dengan benar...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Konfirmasi password dengan benar", Toast.LENGTH_LONG).show();
             }else{
                 requestQueue.add(stringRequest);
             }
