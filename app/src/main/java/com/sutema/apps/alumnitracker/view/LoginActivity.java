@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,8 +14,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sutema.apps.alumnitracker.R;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +46,25 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println(response);
+                ObjectMapper mapper = new ObjectMapper();
+
+                try{
+                    JsonNode resp = mapper.readTree(response);
+
+                    boolean isSuccess = resp.get("success").asBoolean();
+
+                    if (isSuccess) {
+                        Toast.makeText(getApplicationContext(), "Autentikasi berhasil", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Autentikasi gagal", Toast.LENGTH_LONG).show();
+                    }
+
+
+                }catch(IOException e){
+                    e.printStackTrace();
+
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override

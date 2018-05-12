@@ -57,7 +57,9 @@
             android:id="@+id/passwordInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password_txt" />
+            android:hint="@string/password_txt"
+            android:inputType="textPassword"
+            />
     </android.support.design.widget.TextInputLayout>
 
     <Button
