@@ -35,13 +35,6 @@ public class SignupActivity extends AppCompatActivity {
         final TextView email = findViewById(R.id.emailInputText);
         final TextView password = findViewById(R.id.passwordInputText);
         final TextView passwordConfirm = findViewById(R.id.passwordConfirmInputText);
-        try{
-            if(!password.getText().toString().equals(passwordConfirm.getText().toString())){
-                Toast.makeText(getApplicationContext(), "Konfirmasi password dengan benar...", Toast.LENGTH_LONG).show();
-            }
-        }catch (Exception e){
-
-        }
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = this.urlApi+"/users/";
@@ -67,13 +60,13 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
 
-            }
-        }){
+                    }
+                }){
             protected Map<String, String> getParams(){
                 Map<String, String> myData = new HashMap<>();
                 myData.put("fullname", fullname.getText().toString());
@@ -83,7 +76,14 @@ public class SignupActivity extends AppCompatActivity {
             }
         };
 
-        requestQueue.add(stringRequest);
+        try{
+            if(!password.getText().toString().equals(passwordConfirm.getText().toString())){
+                Toast.makeText(getApplicationContext(), "Konfirmasi password dengan benar...", Toast.LENGTH_LONG).show();
+            }else{
+                requestQueue.add(stringRequest);
+            }
+        }catch (Exception e){
 
+        }
     }
 }
